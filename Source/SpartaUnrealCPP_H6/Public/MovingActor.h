@@ -18,8 +18,10 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
-	bool CheckContinue();
-
+	void RestartMove();
+	void SetMoveSpeed(FVector InSpeed);
+	void SetMaxRange(float InRange);
+	
 protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
 	USceneComponent* Scene;
@@ -36,4 +38,8 @@ protected:
 	bool bIsOnGoing;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Move")
 	bool bIsMovable;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Move")
+	float StopbyTime;
+
+	FTimerHandle MoveDelayTimerHandle;
 };

@@ -13,6 +13,8 @@ AMovingActor::AMovingActor()
 	StartLocation = FVector::ZeroVector;
 	MoveSpeed = FVector::ZeroVector;
 	bIsOnGoing = true;
+	bIsMovable = true;
+	StopbyTime = 3.0f;
 }
 
 void AMovingActor::BeginPlay()
@@ -28,24 +30,32 @@ void AMovingActor::Tick(float DeltaTime)
 	if (bIsMovable)
 	{
 		SetActorLocation(GetActorLocation() + (bIsOnGoing ? MoveSpeed * DeltaTime : -MoveSpeed * DeltaTime));
-		if ((GetActorLocation() - StartLocation).Length() >= MaxRange)
+		if (bIsOnGoing && (GetActorLocation() - StartLocation).Length() >= MaxRange)
 		{
-			if (CheckContinue())
-			{
-				bIsOnGoing = false;
-			}
+			bIsOnGoing = false;
+			bIsMovable = false;
+			GetWorldTimerManager().SetTimer(MoveDelayTimerHandle, this, &AMovingActor::RestartMove, StopbyTime);
 		}
-		else if ((GetActorLocation() - StartLocation).Length() < MoveSpeed.Length() * DeltaTime)
+		else if (!bIsOnGoing &&(GetActorLocation() - StartLocation).Length() < MoveSpeed.Length() * DeltaTime)
 		{
-			if (CheckContinue())
-			{
-				bIsOnGoing = true;
-			}
+			bIsOnGoing = true;
+			bIsMovable = false;
+			GetWorldTimerManager().SetTimer(MoveDelayTimerHandle, this, &AMovingActor::RestartMove, StopbyTime);
 		}
 	}
 }
 
-bool AMovingActor::CheckContinue()
+void AMovingActor::RestartMove()
 {
-	return true;
+	bIsMovable = true;
+}
+
+void AMovingActor::SetMoveSpeed(FVector InSpeed)
+{
+	MoveSpeed = InSpeed;
+}
+
+void AMovingActor::SetMaxRange(float InRange)
+{
+	MaxRange = InRange;
 }
