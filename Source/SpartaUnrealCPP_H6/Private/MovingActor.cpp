@@ -35,7 +35,7 @@ void AMovingActor::Tick(float DeltaTime)
 				bIsOnGoing = false;
 			}
 		}
-		else if (FMath::IsNearlyZero((GetActorLocation() - StartLocation).Length()))
+		else if ((GetActorLocation() - StartLocation).Length() < MoveSpeed.Length() * DeltaTime)
 		{
 			if (CheckContinue())
 			{
@@ -47,5 +47,5 @@ void AMovingActor::Tick(float DeltaTime)
 
 bool AMovingActor::CheckContinue()
 {
-	return false;
+	return true;
 }

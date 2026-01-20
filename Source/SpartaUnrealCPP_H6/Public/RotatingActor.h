@@ -19,6 +19,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
+	USceneComponent* Scene;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UStaticMeshComponent* MeshComp;
+
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Rotate")
 	FRotator RotateSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotate")

@@ -21,16 +21,16 @@ public:
 	bool CheckContinue();
 
 protected:
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Components")
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
 	USceneComponent* Scene;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Components")
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
 	UStaticMeshComponent* MeshComp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Move")
 	FVector MoveSpeed;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Move")
 	FVector StartLocation;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Move")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Move")
 	float MaxRange;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Move")
 	bool bIsOnGoing;

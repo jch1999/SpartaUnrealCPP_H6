@@ -3,6 +3,12 @@
 ARotatingActor::ARotatingActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	Scene = CreateDefaultSubobject<USceneComponent>(TEXT("Scene"));
+	SetRootComponent(Scene);
+
+	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+	MeshComp->SetupAttachment(Scene);
+
 	RotateSpeed = FRotator::ZeroRotator;
 	bIsRotatable = true;
 }
